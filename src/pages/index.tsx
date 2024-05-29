@@ -3,6 +3,7 @@ import type { HeadFC, PageProps } from "gatsby"
 import SongDisplay from "../components/song-display/SongDisplay"
 import "../styles/index.scss"
 
+import headerImage from "../images/image.png";
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
@@ -15,7 +16,7 @@ const IndexPage: React.FC<PageProps> = () => {
 export default IndexPage
 
 export const Head: HeadFC = () => (<>
-  <title>Youth Group Songs</title>
-  <meta name="keywords" content="Youth Group Songs, YG Songs, yg-songs, church songs" />
-  <meta name="description" content="A collection of 200+ popular youth group songs" />
+  <title>Carnet de chants de la legion etrangeres</title>
+  <meta name="keywords" content="Carnet de chants de la legion etrangere, Chants Legion, french foreign legion, legion songs" />
+  <meta name="description" content="Carnet de chants de la legion etrangere" />
 </>)

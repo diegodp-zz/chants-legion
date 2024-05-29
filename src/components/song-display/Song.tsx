@@ -1,17 +1,24 @@
-import * as React from "react"
+import * as React from "react";
 
 var Song = React.forwardRef((props: {title: string, lyrics: string[], id?: number}, ref) => {
-    //format each element of the array into a JSX Element
+    // Format each element of the array into a JSX Element
     let output = props.lyrics.map((value, index) => {
-        //an empty <p> is not normally displayed so we should make it a <br> instead
+        // An empty <p> is not normally displayed so we should make it a <br> instead
         if (value.trim().length === 0) {
-            return <br key={index}/>
+            return <br key={index}/>;
         }
-        return (<p key={index}>{value}</p>);
+        // Check if the line starts with "<b>" and ends with "</b>" for bold text
+        const isBold = value.trim().startsWith("<b>") && value.trim().endsWith("</b>");
+        // If line is bold, render it with <strong> tag, otherwise render as normal <p>
+        return (
+            <p key={index}>
+                {isBold ? <strong>{value.substring(3, value.length - 4)}</strong> : value}
+            </p>
+        );
     });
 
-    //format id if it exists
-    let prefix=props.id ? props.id + ": " : "";
+    // Format id if it exists
+    let prefix = props.id ? props.id + ": " : "";
 
     return (
         <div className="song" ref={ref}>

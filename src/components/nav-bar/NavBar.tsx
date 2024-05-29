@@ -13,7 +13,7 @@ export default function NavBar(props:{
             <div className={"Expand-icon"} onClick={() => setVisibility(!isVisible)}>
                 <div className={isVisible?"open":""} />
             </div>
-            <span>Youth Group Songs</span>
+            <span>Chants de la Légion étrangère</span>
             <TableOfContents songs={props.songs} setVisibility={setVisibility} isVisible={isVisible} />
         </div>
     );

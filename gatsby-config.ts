@@ -2,8 +2,8 @@ import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    title: `YG Songs`,
-    siteUrl: `https://www.youthgroupsongs.com`
+    title: `Chants Legion`,
+    siteUrl: `https://www.chantslegion.com`
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
@@ -15,8 +15,8 @@ const config: GatsbyConfig = {
       resolve: 'gatsby-plugin-manifest',
       options: {
         icon: "src/images/icon.png",
-        name: `Youth Group Songs`,
-        short_name: `YG Songs`,
+        name: `Chants de la Legion Etrangere`,
+        short_name: `Chants Legion`,
         start_url: `/`,
         background_color: `#2E2E2E`,
         theme_color: `#C9C9C9`,

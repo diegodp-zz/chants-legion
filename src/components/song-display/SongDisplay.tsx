@@ -4,10 +4,9 @@ import Song from "./Song";
 import NavBar from "../nav-bar/NavBar";
 import JSONSongs from "../../content/songs.json";
 import SongData from "../../types/SongData";
+import headerImage from "../../images/carnet.jpeg";
 
-// all the songs that we have
-// object is the HTML object that corresponds to the song
-// reference is the React reference to the DOM object
+// All the songs that we have
 let songs: SongData[] = JSONSongs;
 
 export const scrollTo = (ref?: React.RefObject<HTMLSpanElement>) => {
@@ -15,7 +14,7 @@ export const scrollTo = (ref?: React.RefObject<HTMLSpanElement>) => {
         return;
     }
 
-    let relative = document.getElementsByClassName("All-songs")[0].children[0]
+    let relative = document.getElementsByClassName("All-songs")[0].children[0];
 
     let offset = 0;
 
@@ -28,32 +27,32 @@ export const scrollTo = (ref?: React.RefObject<HTMLSpanElement>) => {
         top: offsetPos,
         behavior: "smooth" //either "smooth" (scrolls) or "auto" (jumps)
     });
-}
+};
 
 // Will display the songs
 export default function SongDisplay(props:{}) {
-    // keep track of the references to the songs
-    // eslint-disable-next-line
-    const [songRefs, setSongRefs] = useState<React.RefObject<HTMLSpanElement>[]>()
+    // Keep track of the references to the songs
+    const [songRefs, setSongRefs] = useState<React.RefObject<HTMLSpanElement>[]>([]);
 
-    // keep track of the song objects to display
-    const [songObjects, setSongObjects] = useState<JSX.Element[]>();
+    // Keep track of the song objects to display
+    const [songObjects, setSongObjects] = useState<JSX.Element[]>([]);
 
-    let refs: React.RefObject<HTMLDivElement>[] = songs.map(() => {return createRef()})
-    songs.forEach((song, index) => {
-        song.reference = refs[index];
-        return song.object = <Song title={song.title} lyrics={song.lyrics} id={index + 1} ref={refs[index]} key={song.title + index}></Song>
-    });
-
-    let songHTML = songs.map((song) => song.object);
+    useEffect(() => {
+        let refs: React.RefObject<HTMLDivElement>[] = songs.map(() => createRef());
+        setSongRefs(refs);
+        let updatedSongs = songs.map((song, index) => {
+            song.reference = refs[index];
+            return <Song title={song.title} lyrics={song.lyrics} id={index + 1} ref={refs[index]} key={song.title + index} />;
+        });
+        setSongObjects(updatedSongs);
+    }, []);
 
     const searchForElement = (query: string) => {
-        //will test if query is a number
+        // Will test if query is a number
         var reg = new RegExp(/^\d+$/);
         
         if (reg.test(query)) {
-            //if is number
-
+            // If it's a number
             let num = Number(query);
             num--;
 
@@ -66,7 +65,7 @@ export default function SongDisplay(props:{}) {
                 }
             }
         } else {
-            //if is not a number
+            // If it's not a number
             let queryLower = query.toLowerCase();
             let song;
             for (let i = 0; i < songs.length; i++) {
@@ -78,15 +77,16 @@ export default function SongDisplay(props:{}) {
                 }
             }
         }
-    }
+    };
 
     return (
         <>
-            {/* <TableOfContents scrollTo={scrollTo} songs={songs} /> */}
             <NavBar search={searchForElement} songs={songs}/>
             <div className="All-songs custom-scrollbar" style={{position: "relative"}}>
+                <img src={headerImage} alt="Header" style={{ width: "70%", height: "auto", margin: "0 auto", paddingTop: "20px" }} />
+                <p style={{ paddingTop: "2px", textAlign: "center" }}>Build by LEG ENNES</p>
                 <span style={{visibility: "collapse", position: "absolute"}}></span>
-                {songHTML}
+                {songObjects}
             </div>
         </>
     );
