@@ -2,9 +2,29 @@
     {
         "title": "La Marseillaise",
         "lyrics": [
-
-        ]
+            "<b>[refrain]Tiens, voilà du boudin, voilà du boudin, voilà du boudin, [0:01][0:12]</b>",
+            "<b>[refrain]Pour les Alsaciens, les Suisses et les Lorrains, [0:02][0:13]</b>",
+            "<b>[refrain]Pour les Belges, y’en a plus, pour les Belges, y’en a plus, [0:03][0:14]</b>",
+            "<b>[refrain]Ce sont des tireurs au cul. [0:04][0:15]</b>",
+            "<b>[refrain]Pour les Belges, y’en a plus, pour les Belges, y’en a plus, [0:05][0:16]</b>",
+            "<b>[refrain]Ce sont des tireurs au cul. [0:06][0:17]</b>",
+            "",
+            "Sonnerie A :",
+            "",
+            "Nous sommes des dégourdis,[0:07]",
+            "Nous sommes des lascars,[0:08]",
+            "Des types pas ordinaires,[0:09]",
+            "Nous avons souvent notre cafard,[0:10]",
+            "Nous sommes des légionnaires. [0:11]",
+            "",
+            "I. Au Tonkin la Légion immortelle,[0:18]",
+            "A Tuyen-Quang illustra notre drapeau, [0:19]",
+            "Héros de Camerone et frères modèles,[0:20]",
+            "Dormez en paix dans vos tombeaux. [0:21]"
+        ],
+        "audioSrc": "http://streaming.tdiradio.com:8000/house.mp3"
     },
+    
     {
         "title": "La Boudin",
         "lyrics": [
