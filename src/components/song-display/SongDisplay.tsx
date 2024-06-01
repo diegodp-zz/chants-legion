@@ -84,9 +84,26 @@ export default function SongDisplay(props:{}) {
             <NavBar search={searchForElement} songs={songs}/>
             <div className="All-songs custom-scrollbar" style={{position: "relative"}}>
                 <img src={headerImage} alt="Header" style={{ width: "70%", height: "auto", margin: "0 auto", paddingTop: "20px" }} />
-                <p style={{ paddingTop: "2px", textAlign: "center" }}>Build by LEG ENNES</p>
+                <p style={{  textAlign: "center" }}>Build by LEG ENNES</p>
+                
+                <div style={{padding: "5px", textAlign: "center"}}>
+                    <h3>Is it possible to use this offline?</h3>
+                    <p>You can use this offline if you install the app by:</p>
+                    <h4>Android/PC</h4>
+                    <ul style={{listStyleType: "none", padding: 0}}>
+                        <li>Go to the browser's menu</li>
+                        <li>Select install</li>
+                    </ul>
+                    <h4>iOS</h4>
+                    <ul style={{listStyleType: "none", padding: 0}}>
+                        <li>Press the share button</li>
+                        <li>Select add to home screen</li>
+                    </ul>
+                </div>
+
                 <span style={{visibility: "collapse", position: "absolute"}}></span>
                 {songObjects}
+                
             </div>
         </>
     );

@@ -18,5 +18,5 @@ export default IndexPage
 export const Head: HeadFC = () => (<>
   <title>Carnet de chants de la legion etrangeres</title>
   <meta name="keywords" content="Carnet de chants de la legion etrangere, Chants Legion, french foreign legion, legion songs" />
-  <meta name="description" content="Carnet de chants de la legion etrangere" />
+  <meta name="description" content="Complete book of all songs that leggionaires need to learn" />
 </>)

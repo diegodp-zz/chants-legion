@@ -1,9 +1,9 @@
 {
-  "name": "yg-songs",
+  "name": "chants-legion",
   "version": "1.0.0",
   "private": true,
-  "description": "yg-songs",
-  "author": "Coleman Sandefur",
+  "description": "Carnet de chants de la legion etrangere",
+  "author": "Leg Ennes",
   "keywords": [
     "gatsby"
   ],
