@@ -24,7 +24,7 @@ const HighlightedLyrics = ({ lyrics, currentTime }) => {
   }, [currentTime, lyrics]);
 
   return (
-    <div style={{ lineHeight: "1.5", marginBottom: "10px" }}>
+    <div style={{ lineHeight: "1.5", marginBottom: "10px", textAlign: "center" }}>
       {lyrics.map((lyric, index) => (
         <p key={index} style={{ margin: "0" }}>
           {renderLyric(lyric, index, highlightedLines)}
@@ -36,20 +36,22 @@ const HighlightedLyrics = ({ lyrics, currentTime }) => {
 
 // Function to render lyric with bold if applicable
 const renderLyric = (lyric, index, highlightedLines) => {
-  const isBold = lyric.trim().startsWith("<b>") && lyric.trim().endsWith("</b>");
+  const timestampRegex = /\[(\d+:\d+)\]/;
+  const lyricWithoutTimestamp = lyric.replace(timestampRegex, '').trim();
+  const isBold = lyricWithoutTimestamp.startsWith("<b>") && lyricWithoutTimestamp.endsWith("</b>");
 
   if (isBold) {
     return (
       <strong key={index}>
         <span style={{ backgroundColor: highlightedLines[index] ? "green" : "transparent", padding: "2px 5px", marginRight: "3px" }}>
-          {lyric.substring(3, lyric.length - 4)}
+          {lyricWithoutTimestamp.substring(3, lyricWithoutTimestamp.length - 4)}
         </span>
       </strong>
     );
   } else {
     return (
       <span key={index} style={{ backgroundColor: highlightedLines[index] ? "green" : "transparent", padding: "2px 5px", marginRight: "3px" }}>
-        {lyric}
+        {lyricWithoutTimestamp}
       </span>
     );
   }

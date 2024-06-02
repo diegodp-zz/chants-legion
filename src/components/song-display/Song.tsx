@@ -45,7 +45,9 @@ const Song: React.ForwardRefRenderFunction<HTMLDivElement, SongProps> = (
 
   return (
     <div className="song" ref={ref} style={{ border: "1px solid black", padding: "10px", marginBottom: "20px" }}>
-      <h1>{id ? `${id}: ${title}` : title}</h1>
+      <h1 style={{ textAlign: "center" }}>{title}</h1>
+      {/* Hidden ID */}
+      {id && <div style={{ display: 'none' }}>{id}</div>}
       <HighlightedLyrics lyrics={lyrics} currentTime={currentTimeState} />
       {audioSrc && (
         <audio controls ref={audioRef}>
@@ -55,9 +57,6 @@ const Song: React.ForwardRefRenderFunction<HTMLDivElement, SongProps> = (
       )}
     </div>
   );
-
-  
 };
-
 
 export default forwardRef(Song);
