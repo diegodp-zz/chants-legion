@@ -4,13 +4,12 @@ import HighlightedLyrics from "./HighlightedLyrics";
 interface SongProps {
   title: string;
   lyrics: string[];
-  currentTime: number;
   audioSrc?: string;
   id?: number;
 }
 
 const Song: React.ForwardRefRenderFunction<HTMLDivElement, SongProps> = (
-  { title, lyrics, currentTime, audioSrc, id },
+  { title, lyrics, audioSrc, id },
   ref
 ) => {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -23,7 +22,7 @@ const Song: React.ForwardRefRenderFunction<HTMLDivElement, SongProps> = (
       }
     };
 
-    const intervalId = setInterval(updateCurrentTime, 1000);
+    const intervalId = setInterval(updateCurrentTime, 500); // Update every 500ms for smoother highlighting
     return () => clearInterval(intervalId);
   }, []);
 
@@ -46,9 +45,8 @@ const Song: React.ForwardRefRenderFunction<HTMLDivElement, SongProps> = (
   return (
     <div className="song" ref={ref} style={{ border: "1px solid black", padding: "10px", marginBottom: "20px" }}>
       <h1 style={{ textAlign: "center" }}>{title}</h1>
-      {/* Hidden ID */}
       {id && <div style={{ display: 'none' }}>{id}</div>}
-      <HighlightedLyrics lyrics={lyrics} currentTime={currentTimeState} />
+      <HighlightedLyrics lyrics={lyrics} currentTime={currentTimeState} onLyricClick={handleLyricClick} />
       {audioSrc && (
         <audio controls ref={audioRef}>
           <source src={audioSrc} type="audio/mp3" />
