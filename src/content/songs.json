@@ -3,6 +3,7 @@
         "title": "La Boudin",
         "lyrics": [
             "",
+            "<b>Refrain:</b>",
             "<b>Tiens, voilà du boudin, voilà du boudin, voilà du boudin, [0:01]</b>",
             "<b>Pour les Alsaciens, les Suisses et les Lorrains, [0:05]</b>",
             "<b>Pour les Belges, y’en a plus, pour les Belges, y’en a plus, [0:10]</b>",
@@ -36,65 +37,72 @@
     {
         "title": "Nous sommes tous des volontaires (1 RE)",
         "lyrics": [
-            "I. Nous marchons gaiement en cadence, 1",
-            "Malgré le vent, malgré la pluie, 2.1",
-            "Les meilleurs soldats de la France, 1",
-            "Sont là devant vous, les voici. 2.1",
+            "",
+            "Nous marchons gaiement en cadence,[0:00]",
+            "Malgré le vent, malgré la pluie, [0:05]",
+            "Les meilleurs soldats de la France, [0:10]",
+            "Sont là devant vous, les voici. [0:15]",
             "",
             "<b>Refrain :</b>",
             "",
-            "<b>Nous sommes tous des volontaires, 1</b>",
-            "<b>Les gars du premier Étranger, 2.1</b>",
-            "<b>Notre devise est légendaire, 1</b>",
-            "<b>Honneur fidélité, fidélité ! 2</b>",
-            "<b>Marchons légionnaires, 1.2</b>",
-            "Dans la boue, dans le sable brûlant,",
-            "Marchons l’âme légère",
-            "Et le coeur vaillant, 2",
-            "Marchons légionnaires. 2",
-            "Dans la boue, dans le sable brûlant,",
-            "Marchons l’âme légère",
-            "Et le coeur vaillant, 2",
-            "Marchons légionnaires.",
+            "<b>Nous sommes tous des volontaires, [0:20] [1:34]</b>",
+            "<b>Les gars du premier Étranger, [0:25] [1:39]</b>",
+            "<b>Notre devise est légendaire, [0:30] [1:45]</b>",
+            "<b>Honneur fidélité, fidélité ! [0:35] [1:49]</b>",
+            "<b>Marchons légionnaires, </b>[0:40] [1:54]",
+            "<b>Dans la boue, dans le sable brûlant, </b>[0:46] [1:59]",
+            "<b>Marchons l’âme légère </b> [0:49] [2:04]",
+            "<b>Et le coeur vaillant, 2</b> [0:52] [2:06]",
+            "<b>Marchons légionnaires. </b> [0:55] [2:10]",
+            "<b>Dans la boue, dans le sable brûlant, </b>[1:00] [1:15]",
+            "<b>Marchons l’âme légère </b>[1:04] [1:19]",
+            "<b>Et le coeur vaillant, </b>[1:07] [1:21]",
+            "<b>Marchons légionnaires.</b>[1:10] [1:24]",
             "",
-            "II. Partout où le combat fait rage, 1",
-            "L’on voit le premier Étranger, 2.1",
-            "Exemple d’héroïsme de courage, 1",
-            "Se couvrir de glorieux lauriers. 2.1",
+            "Partout où le combat fait rage, [1:14] ",
+            "L’on voit le premier Étranger,[1:20]",
+            "Exemple d’héroïsme de courage, [1:24]",
+            "Se couvrir de glorieux lauriers. [1:29]",
             "",
-            "III. Gardons dans le fond de nos âmes, 1",
-            "Le souvenir de nos aînés, 2.1",
-            "Et pour la grenade à sept flammes, 1",
-            "Loyal prêt à tout sacrifier. 2.1"
-        ]
+            "Gardons dans le fond de nos âmes, [2:29]",
+            "Le souvenir de nos aînés, [2:34]",
+            "Et pour la grenade à sept flammes, [2:39]",
+            "Loyal prêt à tout sacrifier. [2:44]"
+        ],
+        "audioSrc": "https://dl.dropboxusercontent.com/scl/fi/i68y8jxibz9x2gszczdma/Nous-sommes-tous-des-volontaires.mp3?rlkey=7deyyvu7orhaseyuiqrhehyrf&st=ol29dxzm&dl=0"
     },
     
     {
         "title": "Anne-Marie du 2 REI",
         "lyrics": [
-            "I. Anne-Marie, 2 wo geht die Reise hin,",
-            "(die Reise hin) 2.1",
+            "",
+            "<b>I.</b>",
             "Anne-Marie, 2 wo geht die Reise hin,",
             "(die Reise hin) 2.1",
-            "[ Sie geht in’s Städtelein (heili, heilo)",
+            "Anne-Marie, 2 wo geht die Reise hin,",
+            "(die Reise hin)",
+            "Sie geht in’s Städtelein (heili, heilo)",
             "Wo die Soldaten sein. (heili, heilo)",
             "Ei, ei, ei,",
-            "Junge, Junge, Jung’ Anne-Marie. 2.1 ] (bis)",
+            "Junge, Junge, Jung’ Anne-Marie. (bis)",
             "",
-            "II. Anne-Marie, 2 heut’ woll’n wir lustig sein,",
+            "<b>II.</b>",
+            "Anne-Marie, 2 heut’ woll’n wir lustig sein,",
             "(wir lustig sein) 2.1",
             "Anne-Marie, 2 heut’ woll’n wir lustig sein,",
             "(wir lustig sein) 2.1",
             "[ Wir wollen tanzen geh’n (heili, heilo)",
             "Und uns im Kreise dreh’n. (heili, heilo)",
             "Ei, ei, ei,",
-            "Junge, Junge, Jung’ Anne-Marie. 2.1 ] (bis)"
-        ]
+            "Junge, Junge, Jung’ Anne-Marie. (bis)"
+        ],
+        "audioSrc": "https://dl.dropbox.com/scl/fi/jftmhmgy2o7cmcu25fi0m/Anne-Marie-du-2-REI-chant-de-la-L-gion-trang-re-French-foreign-legion.mp3?rlkey=qlqietdi7nnr85zu623865y9k&st=xursdpe0&dl=0"
     },
     {
         "title": "Anne-Marie du 3 REI",
         "lyrics": [
-            "I. Mein Regiment, 2.1 mein Heimatland, 2.1",
+            "",
+            "Mein Regiment, 2.1 mein Heimatland,",
             "Mein’ Mutter hab’ ich nie gekannt, 2.1",
             "Mein Vater starb schon früh im Feld, ja Feld,",
             "Ich bin allein  2.1  auf dieser Welt. 2.1",
@@ -106,23 +114,29 @@
             "<b>Mein Nam’ ist Anne-Marie, 1</b>",
             "<b>Ein jeder kennt mich schon, 1</b>",
             "<b>Ich bin ja die Tochter, vom ganzen Bataillon. </b>",
-            "",
             "<b>Mein Nam’ ist Anne-Marie, 1</b>",
             "<b>Ein jeder kennt mich schon, 1</b>",
             "<b>Ich bin ja die Tochter, vom ganzen Bataillon. 2.1</b>",
             "",
-            "II. Anne-Marie,  2.1  das ist mein Nam’, 2.1",
+            "Anne-Marie,  2.1  das ist mein Nam’, 2.1",
             "Den ich vom Regiment bekam. 2.1",
             "Mein ganzes Leben lasse ich, ja ich,",
             "Für’s Bataillon 2.1 da sterbe ich. 2.1",
             "Mein ganzes Leben 2 lasse ich, ja ich,",
             "Für’s Bataillon 2.1 da sterbe ich. 2.1"
-        ]
+        ],
+        "audioSrc": "https://dl.dropbox.com/scl/fi/dwcihppptce4eo1evowk4/Anne-Marie-du-3-REI-chant-de-la-L-gion-trang-re-French-foreign-legion.mp3?rlkey=0q20alr5ogvxqeem4e5cmparz&st=bu2zwtfu&dl=0"
     },
     {
         "title": "C'est le 4 (4 RE)",
         "lyrics": [
-            "I. À travers pierres et dunes",
+            "",
+            "<b>Refrain :</b>",
+            "<b>C’est le Quatre en chantant,</b>",
+            "<b>Qui s’avance qui s’avance,</b>",
+            "<b>Laissez-le passer. (bis)</b>",
+            "",
+            "À travers pierres et dunes",
             "S’en vont les képis blancs.",
             "Sous le soleil, clair de lune",
             "Nous marchons en chantant",
@@ -131,13 +145,7 @@
             "Nous repartons au combat,",
             "Pour la gloire de la Légion.",
             "",
-            "<b>Refrain :</b>",
-            "",
-            "[ <b>C’est le Quatre en chantant</b>",
-            "<b>Qui s’avance qui s’avance,</b>",
-            "<b>Laissez-le passer.</b> ] (bis)",
-            "",
-            "II. Sur les pistes des Corbières",
+            "Sur les pistes des Corbières",
             "Nous partons en mission.",
             "Une colonne de bérets verts",
             "S’en va à l’instruction,",
@@ -145,12 +153,14 @@
             "Dans toutes les directions.",
             "Devenir légionnaires",
             "C’est notre seule ambition."
-        ]
+        ],
+        "audioSrc": "https://dl.dropbox.com/scl/fi/hy08mqw9yb3ubkf9p1pz6/C-est-le-4-Chant-de-la-L-gion-trang-re.mp3?rlkey=r58jwyods1mpukgsbhvtxqazo&st=vh2enc54&dl=0"
     },
     {
         "title": "Le front haut et l'âme fière (5 RE)",
         "lyrics": [
-            "I. Vaillants guerriers de ce régiment",
+            "",
+            "Vaillants guerriers de ce régiment",
             "Vous qui luttiez si superbement",
             "En maintenant dans la tourmente",
             "L’Honneur et la Fidélité.",
@@ -183,25 +193,29 @@
     {
         "title": "La Colonne (1 REC)",
         "lyrics": [
-            "I. Une colonne de la Légion étrangère",
+            "1.",
+            "Une colonne de la Légion étrangère",
             "S’avance dans le bled en Syrie,",
             "La tête de la colonne est formée",
             "Par le Premier Etranger de cavalerie.",
             "La tête de la colonne est formée",
             "",
-            "II. Les Druses s’avancent à la bataille,",
+            "2.",
+            "Les Druses s’avancent à la bataille,",
             "En avant, légionnaires à l’enn’mi,",
             "Le plus brave au combat comme toujours,",
             "C’est le Premier Etranger de cavalerie.",
             "Le plus brave au combat comme toujours,",
             "",
-            "III. Un légionnaire tombe frappé d’une balle,",
+            "3.",
+            "Un légionnaire tombe frappé d’une balle,",
             "Adieu mes parents, mes amis,",
             "Toutes mes fautes je les ai expiées,",
             "Au Premier Etranger de cavalerie.",
             "Toutes mes fautes je les ai expiées,",
             "",
-            "IV. Sur sa tombe une simple croix s’élève,",
+            "4.",
+            "Sur sa tombe une simple croix s’élève,",
             "Sur laquelle ces seuls mots sont inscrits,",
             "Il a servi honnête et fidèle,",
             "Au Premier Etranger de cavalerie.",
@@ -211,7 +225,8 @@
     {
         "title": "Sous le soleil brûlant d'afrique (13 DBLE)",
         "lyrics": [
-            "I. Sous le soleil brûlant d’Afrique",
+            "",
+            "Sous le soleil brûlant d’Afrique",
             "Cochinchine, Madagascar,",
             "Une phalange magnifique,",
             "A fait flotter nos étendards,",
@@ -231,7 +246,7 @@
             "Au son de notre Marseillaise,",
             "Savent combattre les képis blancs.",
             "",
-            "II. C’est une chose d’importance,",
+            "C’est une chose d’importance,",
             "La discipline à la Légion,",
             "L’amour du chef l’obéissance,",
             "Sont de plus pure tradition,",
@@ -245,7 +260,8 @@
     {
         "title": "La Légion marche (2 REP)",
         "lyrics": [
-            "I. La Légion marche vers le front,",
+            "",
+            "La Légion marche vers le front,",
             "En chantant, nous suivons,",
             "Héritiers de ses traditions,",
             "Nous sommes avec elle.",
@@ -262,8 +278,8 @@
             "<b>Car nos aînés de la Légion</b>",
             "<b>Se battant là-bas, nous emboîtons le pas.</b> ] (bis)",
             "",
-            "II. Pour ce destin de chevalier :",
-            "<b>Honneur, fidélité,</b>",
+            "Pour ce destin de chevalier :",
+            "Honneur, fidélité,",
             "Nous sommes fiers d’appartenir",
             "Au Deuxième R E P."
             
@@ -272,21 +288,25 @@
     {
         "title": "Soldats de la Légion êtrangère (DLEM)",
         "lyrics": [
-            "I. Soldats de la Légion étrangère,",
+            "",
+            "1.",
+            "Soldats de la Légion étrangère,",
             "Se sont battus, Partout en Algérie :",
             "[ Beaucoup sont tombés, de braves légionnaires",
             "Pour la Légion qui est notre patrie. ] (bis)",
             "",
-            "II. Comme nos anciens, Nous défendrons l’Algérie,",
+            "2.",
+            "Comme nos anciens, Nous défendrons l’Algérie,",
             "Contre le diable Et contre les fellaghas,",
-            "[ Avec nos drapeaux, honneur, fidélité,",
-            "Nous tomberons ou vaincrons au combat. ] (bis)"            
+            "Avec nos drapeaux, honneur, fidélité,",
+            "Nous tomberons ou vaincrons au combat. (bis)"            
         ]
     },
     {
         "title": "Sapeurs, mineurs, et bâtisseurs (6 REG)",
         "lyrics": [
-            "I. Sixième Étranger d’Infanterie",
+            "",
+            "Sixième Étranger d’Infanterie",
             "Nous sommes tous tes héritiers, tes héritiers.",
             "Syrie, Liban et Tunisie",
             "Partout les combats sans pitié",
@@ -304,7 +324,7 @@
             "<b>Parfois détruire, souvent construire,</b>",
             "<b>Toujours servir avec honneur et fidélité.</b>",
             "",
-            "II. Sixième Étranger de génie Légion",
+            "Sixième Étranger de génie Légion",
             "Dans les combats les plus violents, les plus violents",
             "En première ligne nous serons mis",
             "Comme les pionniers en défilant",
@@ -317,7 +337,9 @@
     {
         "title": "Le fanion claque et s'élève (1 REG)",
         "lyrics": [
-            "I. Le fanion claque et s’élève",
+            "",
+            "1.",
+            "Le fanion claque et s’élève",
             "Au-dessus du pont romain.",
             "Légionnaire marche sans trêve",
             "Sur les pas de nos anciens.",
@@ -328,7 +350,8 @@
             "Grenade à sept flammes sur ta cuirasse brille.",
             "Honneur fidélité.",
             "",
-            "II. En sondant, les baïonnettes",
+            "2.",
+            "En sondant, les baïonnettes",
             "Chantent toutes le même refrain,",
             "Il faut faire place nette",
             "Déminer tout le terrain.",
@@ -339,7 +362,8 @@
             "Grenade à sept flammes sur ta cuirasse brille.",
             "Honneur fidélité.",
             "",
-            "III. Une seule devise aux lèvres :",
+            "3.",
+            "Une seule devise aux lèvres :",
             "“Legio patria nostra”.",
             "Le lance-flammes ouvre la portière",
             "Légionnaire tu serviras.",
@@ -355,7 +379,8 @@
     {
         "title": "Rien n'empèche (2 REG)",
         "lyrics": [
-            "I. De la boue des rizières aux plateaux du Tonkin",
+            "",
+            "De la boue des rizières aux plateaux du Tonkin",
             "Honneur, fidélité pour unique refrain",
             "Le feu, l’eau et la terre comme seul univers,",
             "Il s’avance et combat, le sapeur légionnaire,",
@@ -367,14 +392,14 @@
             "<b>Dans le froid, la tourmente, à la mort à la vie,</b>",
             "<b>Rien n’empêche le Deuxième Etranger de génie.</b>",
             "",
-            "II. Aujourd’hui la mémoire a sonné le rappel.",
+            "Aujourd’hui la mémoire a sonné le rappel.",
             "Nous, légionnaires du Deux répondons à l’appel",
             "Ouvrir, tracer la route, c’est pour le régiment,",
             "Passer coûte que coûte, voilà notre serment,",
             "Foi, vaillance et courage comme seul héritage,",
             "Nul obstacle et nul homme pour nous faire barrage.",
             "",
-            "III. Sur les cimes de l’Alpe quand le combat résonne,",
+            "Sur les cimes de l’Alpe quand le combat résonne,",
             "Du fracas de la foudre et que l’orage tonne",
             "En avant képis blancs, à nous les grands espaces.",
             "En tout lieu, en tout temps, il nous faut faire face,",
@@ -385,6 +410,7 @@
     {
         "title": "Conquérir des volontaires (GRLE)",
         "lyrics": [
+            "",
             "<b>Refrain:</b>",
             "",
             "<b>Conquérir des volontaires, pour en faire des légionnaires</b>",
@@ -483,6 +509,7 @@
     {
         "title": "Aux légionnaires",
         "lyrics": [
+            "",
             "1.",
             "Quand on a bouffé son pognon",
             "Ou gâché par un coup d’cochon",
@@ -551,6 +578,7 @@
     {
         "title": "Il est un moulin",
         "lyrics": [
+            "",
             "1.",
             "Il est un moulin au fond de la vallée",
             "Qui tourne et qui craque sans cesser (Bis)",
@@ -574,6 +602,7 @@
     {
         "title": "Le fanion de la Légion",
         "lyrics": [
+            "",
             "<b>Refrain:</b>",
             "",
             "<b>As-tu vu le fanion du légionnaire,</b>",
@@ -773,6 +802,7 @@
     {
         "title": "Premier chant du 1° REC",
         "lyrics": [
+            "",
             "1.",
             "Wir sind die Legionäre",
             "Vom ersten Regiment.",
@@ -792,6 +822,7 @@
     {
         "title": "Susanna (chant des compagnies montées)",
         "lyrics": [
+            "",
             "I",
             "Ah ! les carottes. Ah ! les carottes.",
             "Les carottes et les navets !",
@@ -833,6 +864,7 @@
     {
         "title": "Véronika",
         "lyrics": [
+            "",
             "1.",
             "A la sortie de la caserne,",
             "Il y a un vieux moulin.",
@@ -1064,6 +1096,7 @@
     {
         "title": "Kamaraden",
         "lyrics": [
+            "",
             "Kameraden, wir haben die Welt geseh’n, Paris und den heiligen Ort,",
             "",
             "Wir haben die Seelen ins Meer gekotzt, bei Australien da liegen sie noch,",
@@ -1101,6 +1134,7 @@
     {
         "title": "Képis blancs",
         "lyrics": [
+            "",
             "<b>1.</b>",
             "Puisqu’il nous faut vivre et lutter dans la souffrance",
             "Le jour est venu où nous imposerons au front",
@@ -1138,6 +1172,7 @@
     {
         "title": "Le soleil brille",
         "lyrics": [
+            "",
             "<b>I.</b>",
             "Le soleil brille, préparez-vous,",
             "Et qui sait si demain, pour nous autres, il luira.",
