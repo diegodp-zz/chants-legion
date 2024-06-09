@@ -5,6 +5,7 @@ import NavBar from "../nav-bar/NavBar";
 import JSONSongs from "../../content/songs.json";
 import SongData from "../../types/SongData";
 import headerImage from "../../images/carnet.jpeg";
+import { useTranslation } from 'gatsby-plugin-react-i18next'; //add translations plugin
 
 // All the songs that we have
 let songs: SongData[] = JSONSongs;
@@ -31,6 +32,9 @@ export const scrollTo = (ref?: React.RefObject<HTMLDivElement>) => {
 
 // Will display the songs
 export default function SongDisplay(props: {}) {
+
+    //add translations
+    const { t } = useTranslation();
     // Keep track of the references to the songs
     const [songRefs, setSongRefs] = useState<React.RefObject<HTMLDivElement>[]>([]);
 
@@ -97,20 +101,20 @@ export default function SongDisplay(props: {}) {
                     alt="Header"
                     style={{ width: "70%", height: "auto", margin: "0 auto", paddingTop: "20px" }}
                 />
-                <p style={{ textAlign: "center" }}>Build by LEG ENNES</p>
+                <p style={{ textAlign: "center" }}>{t('buildBy')}</p>
 
                 <div style={{ padding: "5px", textAlign: "center" }}>
-                    <h3>Is it possible to use this offline?</h3>
-                    <p>You can use this offline if you install the app by:</p>
+                    <h3>{t('offlineUsageQuestion')}</h3>
+                    <p>{t('offlineUsageDescription')}</p>
                     <h4>Android/PC</h4>
                     <ul style={{ listStyleType: "none", padding: 0 }}>
-                        <li>Go to the browser's menu</li>
-                        <li>Select install</li>
+                        <li>{t('androidPcStep1')}</li>
+                        <li>{t('androidPcStep2')}</li>
                     </ul>
                     <h4>iOS</h4>
                     <ul style={{ listStyleType: "none", padding: 0 }}>
-                        <li>Press the share button</li>
-                        <li>Select add to home screen</li>
+                        <li>{t('iosStep1')}</li>
+                        <li>{t('iosStep2')}</li>
                     </ul>
                 </div>
 

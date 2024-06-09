@@ -1,0 +1,14 @@
+{
+  "buildBy": "Build by LEG ENNES",
+  "offlineUsageQuestion": "Is it possible to use this offline?",
+  "offlineUsageDescription": "You can use this offline if you install the app by:",
+  "androidPc": "Android/PC",
+  "androidPcStep1": "Go to the browser's menu",
+  "androidPcStep2": "Select install",
+  "ios": "iOS",
+  "iosStep1": "Press the share button",
+  "iosStep2": "Select add to home screen",
+  "keywords": "keywords english",
+  "description": "description english",
+  "title": "title english"
+}
