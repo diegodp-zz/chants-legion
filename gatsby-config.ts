@@ -28,7 +28,7 @@ const config: GatsbyConfig = {
       options: {
         precachePages: ['/'],
       }
-    }
+    },
     
     //add translations
     {
