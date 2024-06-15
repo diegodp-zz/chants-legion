@@ -31,6 +31,57 @@ $max-song-width: min(40rem, 80%);
     span p:last-child {
         margin-bottom: 0;
     }
+
+    .controls {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 10px;
+
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition-duration: 0.4s;
+
+            &:hover {
+                background-color: white;
+                color: black;
+                border: 2px solid #4CAF50;
+            }
+        }
+
+        .seek-bar {
+            width: 100%;
+            margin: 10px 0;
+            input[type="range"] {
+                width: 100%;
+            }
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+
+            label {
+                margin-right: 10px;
+            }
+
+            input[type="range"] {
+                margin-left: 10px;
+            }
+        }
+    }
 }
 
 body {
@@ -43,7 +94,7 @@ body {
     height: calc(100vh - 3rem);
     overflow-y: scroll;
     width: 100vw;
-    display:grid;
+    display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
     box-sizing: border-box;
@@ -66,7 +117,7 @@ body {
     }
 }
 
-.custom-scrollbar{
+.custom-scrollbar {
     scrollbar-color: $secondary-background-color $primary-background-color;
     scrollbar-color: var(--secondary-background-color) var(--primary-background-color);
 

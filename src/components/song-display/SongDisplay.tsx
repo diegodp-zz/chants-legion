@@ -1,9 +1,9 @@
-import React, { useState, useEffect, createRef } from "react";
+import React, { useState, useEffect, createRef, useRef } from "react";
 import "../../styles/song-display.scss";
 import Song from "./Song";
 import NavBar from "../nav-bar/NavBar";
 import JSONSongs from "../../content/songs.json";
-import SongData from "../../types/SongData";
+import { SongData } from "../../types/SongData";
 import headerImage from "../../images/carnet.jpeg";
 import { useTranslation } from 'gatsby-plugin-react-i18next'; //add translations plugin
 
@@ -37,6 +37,7 @@ export default function SongDisplay(props: {}) {
     const { t } = useTranslation();
     // Keep track of the references to the songs
     const [songRefs, setSongRefs] = useState<React.RefObject<HTMLDivElement>[]>([]);
+    const currentPlayingRef = useRef<React.RefObject<HTMLDivElement> | null>(null);
 
     // Keep track of the song objects to display
     const [songObjects, setSongObjects] = useState<JSX.Element[]>([]);
@@ -54,6 +55,12 @@ export default function SongDisplay(props: {}) {
                     audioSrc={song.audioSrc}
                     ref={refs[index]}
                     key={song.title + index}
+                    onPlay={() => {
+                        if (currentPlayingRef.current && currentPlayingRef.current !== refs[index]) {
+                            currentPlayingRef.current.current?.stop();
+                        }
+                        currentPlayingRef.current = refs[index];
+                    }}
                 />
             );
         });
