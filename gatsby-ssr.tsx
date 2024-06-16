@@ -1,6 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { StaticRouter } from "react-router-dom/server";
 
-export const wrapRootElement = ({ element }: { element: React.ReactNode }) => {
-  return <Router>{element}</Router>;
+export const wrapRootElement = ({ element, pathname }) => {
+  return (
+    <StaticRouter location={pathname}>
+      {element}
+    </StaticRouter>
+  );
 };
