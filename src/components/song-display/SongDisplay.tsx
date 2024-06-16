@@ -55,14 +55,18 @@ export default function SongDisplay(props: {}) {
   const [loadedSongs, setLoadedSongs] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    const storedLoadedSongs = localStorage.getItem('loadedSongs');
-    if (storedLoadedSongs) {
-      setLoadedSongs(new Set(JSON.parse(storedLoadedSongs)));
+    if (typeof window !== 'undefined') {
+      const storedLoadedSongs = localStorage.getItem('loadedSongs');
+      if (storedLoadedSongs) {
+        setLoadedSongs(new Set(JSON.parse(storedLoadedSongs)));
+      }
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('loadedSongs', JSON.stringify([...loadedSongs]));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('loadedSongs', JSON.stringify([...loadedSongs]));
+    }
   }, [loadedSongs]);
 
   useEffect(() => {
@@ -90,15 +94,19 @@ export default function SongDisplay(props: {}) {
             }}
           />
           <div className="share-buttons">
-            <a href={`https://wa.me/?text=${encodeURIComponent(window.location.href + `?song=${encodeURIComponent(song.title)}`)}`} target="_blank" rel="noopener noreferrer">
-              <FontAwesomeIcon icon={faWhatsapp} size="2x" />
-            </a>
-            <a href={`https://twitter.com/share?url=${encodeURIComponent(window.location.href + `?song=${encodeURIComponent(song.title)}`)}`} target="_blank" rel="noopener noreferrer">
-              <FontAwesomeIcon icon={faTwitter} size="2x" />
-            </a>
-            <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href + `?song=${encodeURIComponent(song.title)}`)}`} target="_blank" rel="noopener noreferrer">
-              <FontAwesomeIcon icon={faFacebook} size="2x" />
-            </a>
+            {typeof window !== 'undefined' && (
+              <>
+                <a href={`https://wa.me/?text=${encodeURIComponent(window.location.href + `?song=${encodeURIComponent(song.title)}`)}`} target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={faWhatsapp} size="2x" />
+                </a>
+                <a href={`https://twitter.com/share?url=${encodeURIComponent(window.location.href + `?song=${encodeURIComponent(song.title)}`)}`} target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={faTwitter} size="2x" />
+                </a>
+                <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href + `?song=${encodeURIComponent(song.title)}`)}`} target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={faFacebook} size="2x" />
+                </a>
+              </>
+            )}
           </div>
         </div>
       );
@@ -145,41 +153,41 @@ export default function SongDisplay(props: {}) {
     }
   };
 
-    return (
-        <>
-            <NavBar search={searchForElement} songs={songs} />
-            <div className="All-songs custom-scrollbar" style={{ position: "relative" }}>
-                <img
-                    src={headerImage}
-                    alt="Header"
-                    style={{ width: "70%", height: "auto", margin: "0 auto", paddingTop: "20px" }}
-                />
-                <div className="text-container">
-                    <p>{t('buildBy')}</p>
-                    <h3>{t('offlineUsageQuestion')}</h3>
-                    <p>{t('offlineUsageDescription')}</p>
-                    <h4>Android/PC</h4>
-                    <ul style={{ listStyleType: "none", padding: 0 }}>
-                        <li>{t('androidPcStep1')}</li>
-                        <li>{t('androidPcStep2')}</li>
-                    </ul>
-                    <h4>iOS</h4>
-                    <ul style={{ listStyleType: "none", padding: 0 }}>
-                        <li>{t('iosStep1')}</li>
-                        <li>{t('iosStep2')}</li>
-                    </ul>
-                </div>
-                <span style={{ visibility: "collapse", position: "absolute" }}></span>
-                {songObjects}
-                <div className="loaded-songs">
-                    <h3>Loaded Songs</h3>
-                    <ul>
-                        {[...loadedSongs].map((title, index) => (
-                            <li key={index}>{title}</li>
-                        ))}
-                    </ul>
-                </div>
-            </div>
-        </>
-    );
+  return (
+    <>
+      <NavBar search={searchForElement} songs={songs} />
+      <div className="All-songs custom-scrollbar" style={{ position: "relative" }}>
+        <img
+          src={headerImage}
+          alt="Header"
+          style={{ width: "70%", height: "auto", margin: "0 auto", paddingTop: "20px" }}
+        />
+        <div className="text-container">
+          <p>{t('buildBy')}</p>
+          <h3>{t('offlineUsageQuestion')}</h3>
+          <p>{t('offlineUsageDescription')}</p>
+          <h4>Android/PC</h4>
+          <ul style={{ listStyleType: "none", padding: 0 }}>
+            <li>{t('androidPcStep1')}</li>
+            <li>{t('androidPcStep2')}</li>
+          </ul>
+          <h4>iOS</h4>
+          <ul style={{ listStyleType: "none", padding: 0 }}>
+            <li>{t('iosStep1')}</li>
+            <li>{t('iosStep2')}</li>
+          </ul>
+        </div>
+        <span style={{ visibility: "collapse", position: "absolute" }}></span>
+        {songObjects}
+        <div className="loaded-songs">
+          <h3>Loaded Songs</h3>
+          <ul>
+            {[...loadedSongs].map((title, index) => (
+              <li key={index}>{title}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </>
+  );
 }
