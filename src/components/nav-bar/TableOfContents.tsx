@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import {scrollTo} from "../song-display/SongDisplay";
 import SearchBar from "./SearchBar";
 
 const cleanse = (search: string) => {
@@ -7,14 +6,10 @@ const cleanse = (search: string) => {
 }
 
 const matches = (search: string, song: {title: string, lyrics: string[], number: number}) => {
-
-    //remove unnecessary characters like commas and periods
     let title = cleanse(song.title);
-
-    return title.includes(search) || song.number + 1 === Number.parseInt(search)
+    return title.includes(search) || song.number + 1 === Number.parseInt(search);
 }
 
-//returns an array of songs that match the search
 const search = (search: string, songs: {title: string, lyrics: string[]}[]) => {
     let output = songs.slice().map((value, index) => {
         return {...value, number: index};
@@ -32,13 +27,10 @@ const search = (search: string, songs: {title: string, lyrics: string[]}[]) => {
     return output;
 }
 
-//converts array of songs into an array of JSX element to be displayed
 const formatSongs = (
     songs: {title: string, number: number}[],
     onItemPress: (item: {title: string}, index: number) => void
 ) => {
-
-    //create elements for each song given
     let formatted = songs.map((song) => {
         return ({
             name: song.title,
@@ -50,7 +42,6 @@ const formatSongs = (
         });
     });
 
-    //sort the names to be in order
     formatted.sort((a, b) => (a.name > b.name) ? 1 : -1);
 
     let startingChar = " ";
@@ -67,52 +58,42 @@ const formatSongs = (
         }
     }
 
-    let output = formatted.map((song) => {
-        return song.dom;
-    });
-
-    return output;
+    return formatted.map((song) => song.dom);
 }
 
 export default function TableOfContents(props: {
     songs: {title: string, lyrics: string[], reference?: React.RefObject<HTMLSpanElement>}[],
     setVisibility: React.Dispatch<React.SetStateAction<boolean>>,
     isVisible: boolean,
+    search: (query: string) => void, // Add this prop
 }) {
     let [output, setOutput] = useState<JSX.Element[]>([]);
     let [songResults, setSongResults] = useState<{title: string, lyrics: string[], number: number}[]>(props.songs.map((value, index) => {return {...value, number: index}}));
 
-    //what should happen when a song entry gets selected
     const onItemPress = (item: {title: string}, index: number) => {
         props.setVisibility(false);
-        scrollTo(props.songs[index].reference);
+        props.search(item.title); // Call the search function
     }
 
-    //called when the search bar has a new query
     const updateSearch = (query: string) => {
         setSongResults(search(query, props.songs));
     }
 
-    //updates the glossary's results when the songResults var changes (aka the query has changed and should show the search results) 
     useEffect(() => {
-        //convert songResults to a JSON object of consisting of the title and the song number
         let songs = songResults.map((value) => {return {title: value.title, number: value.number}});
-
         setOutput(formatSongs(songs, onItemPress));
-
-        //eslint-disable-next-line
-    }, [props.songs, songResults])
+    }, [props.songs, songResults]);
 
     return (
         <div className="Table-of-contents custom-scrollbar" style={{
-            visibility: props.isVisible?"visible":"collapse"
+            visibility: props.isVisible ? "visible" : "collapse"
         }} onClick={() => props.setVisibility(false)} >
             <div className="content" onClick={(e) => e.stopPropagation()}>
-                <SearchBar search={updateSearch}/>
+                <SearchBar search={updateSearch} />
                 <div>
                     {output}
                 </div>
             </div>
         </div>
-    )
+    );
 }

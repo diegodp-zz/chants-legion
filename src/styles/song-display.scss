@@ -34,35 +34,38 @@ $max-song-width: min(40rem, 80%);
 
     .controls {
         display: flex;
-        flex-direction: column;
-        justify-content: space-around;
         align-items: center;
         margin-top: 10px;
 
-        button {
-            background-color: #4CAF50;
+        .play-pause-button,
+        .stop-button {
+            background: none;
             border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
             cursor: pointer;
-            border-radius: 4px;
-            transition-duration: 0.4s;
+            font-size: 24px;
+            color: $secondary-font-color;
+            color: var(--secondary-font-color);
+            margin: 0 10px;
 
             &:hover {
-                background-color: white;
-                color: black;
-                border: 2px solid #4CAF50;
+                color: $primary-color;
+                color: var(--primary-color);
+            }
+
+            &:disabled {
+                cursor: not-allowed;
+                color: #ccc;
             }
         }
 
         .seek-bar {
-            width: 100%;
-            margin: 10px 0;
+            flex-grow: 1;
+            margin: 0 10px;
+
+            label {
+                display: none;
+            }
+
             input[type="range"] {
                 width: 100%;
             }
@@ -71,14 +74,15 @@ $max-song-width: min(40rem, 80%);
         .volume-control {
             display: flex;
             align-items: center;
-            margin-top: 10px;
 
             label {
-                margin-right: 10px;
+                margin-right: 5px;
+                display: none;
             }
 
             input[type="range"] {
-                margin-left: 10px;
+                width: 100px;
+                margin-left: 5px;
             }
         }
     }
@@ -121,7 +125,7 @@ body {
     scrollbar-color: $secondary-background-color $primary-background-color;
     scrollbar-color: var(--secondary-background-color) var(--primary-background-color);
 
-    &::-webkit-scrollbar-tracktrack {
+    &::-webkit-scrollbar-track {
         background: $primary-background-color;
         background: var(--primary-background-color);
     }

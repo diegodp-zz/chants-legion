@@ -1,11 +1,16 @@
-//only used for fallbacks
-// $primary-background-color: #2E2E2E;
-// $secondary-background-color: #242424;
-// $primary-font-color: white;
-// $secondary-font-color: #C9C9C9;
-// $tertionary-font-color: #AEAEAE;
-// $highlight-font-color: white;
-// $text-shadow: 1.5px 1.5px 2px rgba(17, 17, 17, .25);
+// Define primary and secondary colors for consistency
+$primary-color: #4CAF50; // Example primary color
+$secondary-color: #ff5722; // Example secondary color
+
+// Fallback colors
+$primary-background-color: #2E2E2E;
+$secondary-background-color: #242424;
+$primary-font-color: white;
+$secondary-font-color: #C9C9C9;
+$tertionary-font-color: #AEAEAE;
+$highlight-font-color: white;
+$text-shadow: 1.5px 1.5px 2px rgba(17, 17, 17, .25);
+
 $primary-background-color: #ffffff;
 $secondary-background-color: #EBEBEB;
 $primary-font-color: black;
@@ -14,7 +19,7 @@ $tertionary-font-color: #424242;
 $highlight-font-color: #222288;
 $text-shadow: 1.5px 1.5px 1px rgba(0,0,0, .15);
 
-//needss to be CSS vars to change them up at runtime
+// Mixins for dark and light modes
 @mixin darkMode() {
     --primary-background-color: #2E2E2E;
     --secondary-background-color: #242424;
@@ -23,6 +28,8 @@ $text-shadow: 1.5px 1.5px 1px rgba(0,0,0, .15);
     --tertionary-font-color: #AEAEAE;
     --highlight-font-color: white;
     --text-shadow: 1.5px 1.5px 2px rgba(17, 17, 17, .75);
+    --primary-color: $primary-color;
+    --secondary-color: $secondary-color;
 }
 
 @mixin lightMode() {
@@ -33,26 +40,37 @@ $text-shadow: 1.5px 1.5px 1px rgba(0,0,0, .15);
     --tertionary-font-color: #424242;
     --highlight-font-color: #222288;
     --text-shadow: 1.5px 1.5px 1px rgba(0,0,0, .15);
+    --primary-color: $primary-color;
+    --secondary-color: $secondary-color;
 }
 
-//defaults to dark theme
+// Defaults to light theme
 :root {
     @include lightMode();
 }
 
-//if user's system preference is light theme
+// If user's system preference is dark theme
 @media (prefers-color-scheme: dark) {
     :root {
         @include darkMode();
     }
 }
 
-//if user wants to force light theme
+// If user wants to force light theme
 :root[color="light"] {
     @include lightMode();
 }
 
-//if user wants ot force dark theme
+// If user wants to force dark theme
 :root[color="dark"] {
     @include darkMode();
+}
+
+.text-container {
+    text-align: center;
+    padding: 5px;
+
+    h3, h4, p, ul, li {
+        color: var(--primary-font-color);
+    }
 }

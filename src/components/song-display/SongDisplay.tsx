@@ -1,52 +1,76 @@
 import React, { useState, useEffect, createRef, useRef } from "react";
+import { useNavigate, useLocation } from 'react-router-dom';
 import "../../styles/song-display.scss";
 import Song from "./Song";
 import NavBar from "../nav-bar/NavBar";
 import JSONSongs from "../../content/songs.json";
 import { SongData } from "../../types/SongData";
 import headerImage from "../../images/carnet.jpeg";
-import { useTranslation } from 'gatsby-plugin-react-i18next'; //add translations plugin
+import { useTranslation } from 'gatsby-plugin-react-i18next';
 
-// All the songs that we have
+// Load songs from JSON
 let songs: SongData[] = JSONSongs;
 
-export const scrollTo = (ref?: React.RefObject<HTMLDivElement>) => {
+export const scrollTo = (ref?: React.RefObject<{ stop: () => void, getElement: () => HTMLDivElement | null }>) => {
     if (!ref?.current) {
+        console.error("ref.current is null or undefined");
         return;
     }
 
-    let relative = document.getElementsByClassName("All-songs")[0].children[0];
+    const element = ref.current.getElement();
+    if (!element) {
+        console.error("ref.current.getElement() is null or undefined");
+        return;
+    }
 
-    let offset = 0;
-
-    let bodyRect = relative.getBoundingClientRect().top;
-    let elementRect = ref.current.getBoundingClientRect().top;
-    let elementPos = elementRect - bodyRect;
-    let offsetPos = elementPos - offset;
+    const relative = document.getElementsByClassName("All-songs")[0].children[0] as HTMLDivElement;
+    const offset = 0;
+    const bodyRect = relative.getBoundingClientRect().top;
+    const elementRect = element.getBoundingClientRect().top;
+    const elementPos = elementRect - bodyRect;
+    const offsetPos = elementPos - offset;
 
     document.getElementsByClassName("All-songs")[0]?.scrollTo({
         top: offsetPos,
-        behavior: "smooth" //either "smooth" (scrolls) or "auto" (jumps)
+        behavior: "smooth"
     });
 };
 
-// Will display the songs
+const getSongRef = (title: string, refs: React.RefObject<{ stop: () => void, getElement: () => HTMLDivElement | null }>[]) => {
+    const index = songs.findIndex(song => song.title === title);
+    if (index === -1 || !refs[index]) {
+        console.error(`Song or ref not found for title: ${title}`);
+        return null;
+    }
+    return refs[index];
+}
+
 export default function SongDisplay(props: {}) {
-
-    //add translations
     const { t } = useTranslation();
-    // Keep track of the references to the songs
-    const [songRefs, setSongRefs] = useState<React.RefObject<HTMLDivElement>[]>([]);
-    const currentPlayingRef = useRef<React.RefObject<HTMLDivElement> | null>(null);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [songRefs, setSongRefs] = useState<React.RefObject<{ stop: () => void, getElement: () => HTMLDivElement | null }>[]>([]);
+    const currentPlayingRef = useRef<React.RefObject<{ stop: () => void, getElement: () => HTMLDivElement | null }> | null>(null);
 
-    // Keep track of the song objects to display
     const [songObjects, setSongObjects] = useState<JSX.Element[]>([]);
     const [loadedSongs, setLoadedSongs] = useState<Set<string>>(new Set());
 
     useEffect(() => {
-        let refs: React.RefObject<HTMLDivElement>[] = songs.map(() => createRef());
+        const storedLoadedSongs = localStorage.getItem('loadedSongs');
+        if (storedLoadedSongs) {
+            setLoadedSongs(new Set(JSON.parse(storedLoadedSongs)));
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('loadedSongs', JSON.stringify([...loadedSongs]));
+    }, [loadedSongs]);
+
+    useEffect(() => {
+        const refs = songs.map(() => createRef<{ stop: () => void, getElement: () => HTMLDivElement | null }>());
         setSongRefs(refs);
-        let updatedSongs = songs.map((song, index) => {
+
+        const updatedSongs = songs.map((song, index) => {
             song.reference = refs[index];
             return (
                 <Song
@@ -71,31 +95,38 @@ export default function SongDisplay(props: {}) {
         setSongObjects(updatedSongs);
     }, []);
 
+    useEffect(() => {
+        if (songRefs.length > 0) {
+            const query = new URLSearchParams(location.search).get('song');
+            if (query) {
+                const songRef = getSongRef(query, songRefs);
+                if (songRef) {
+                    scrollTo(songRef);
+                }
+            }
+        }
+    }, [location.search, songRefs]);
+
     const searchForElement = (query: string) => {
-        // Will test if query is a number
-        var reg = new RegExp(/^\d+$/);
+        const reg = new RegExp(/^\d+$/);
 
         if (reg.test(query)) {
-            // If it's a number
             let num = Number(query);
             num--;
 
             if (num < songs.length) {
-                let song = songs[num];
-
+                const song = songs[num];
                 if (song.reference) {
+                    navigate(`?song=${encodeURIComponent(song.title)}`);
                     scrollTo(song.reference);
                     return;
                 }
             }
         } else {
-            // If it's not a number
-            let queryLower = query.toLowerCase();
-            let song;
-            for (let i = 0; i < songs.length; i++) {
-                song = songs[i];
-
+            const queryLower = query.toLowerCase();
+            for (const song of songs) {
                 if (song.title.toLowerCase().includes(queryLower) && song.reference) {
+                    navigate(`?song=${encodeURIComponent(song.title)}`);
                     scrollTo(song.reference);
                     return;
                 }
@@ -112,9 +143,8 @@ export default function SongDisplay(props: {}) {
                     alt="Header"
                     style={{ width: "70%", height: "auto", margin: "0 auto", paddingTop: "20px" }}
                 />
-                <p style={{ textAlign: "center" }}>{t('buildBy')}</p>
-
-                <div style={{ padding: "5px", textAlign: "center" }}>
+                <div className="text-container">
+                    <p>{t('buildBy')}</p>
                     <h3>{t('offlineUsageQuestion')}</h3>
                     <p>{t('offlineUsageDescription')}</p>
                     <h4>Android/PC</h4>
@@ -128,7 +158,6 @@ export default function SongDisplay(props: {}) {
                         <li>{t('iosStep2')}</li>
                     </ul>
                 </div>
-
                 <span style={{ visibility: "collapse", position: "absolute" }}></span>
                 {songObjects}
                 <div className="loaded-songs">
