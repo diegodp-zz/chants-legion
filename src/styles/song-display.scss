@@ -13,7 +13,7 @@ $max-song-width: min(40rem, 80%);
     width: 100%;
     padding: 2em;
     border-radius: 2em;
-    box-shadow: 1px 1px 4px 2px rgba(0,0,0, .15);
+    box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, .15);
 
     h1 {
         color: $secondary-font-color;
@@ -130,6 +130,44 @@ body {
         background-color: $secondary-background-color;
         background-color: var(--secondary-background-color);
         border-radius: 50%;
+    }
+}
+
+.loaded-songs {
+    margin-top: 2rem;
+    padding: 1em;
+    background-color: $primary-background-color;
+    background-color: var(--primary-background-color);
+    color: $secondary-font-color;
+    color: var(--secondary-font-color);
+    border-radius: 1em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    h3 {
+        margin-bottom: 1em;
+        font-size: 1.5em;
+        font-weight: 600;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+
+        li {
+            padding: 0.5em 0;
+            border-bottom: 1px solid $secondary-background-color;
+            border-bottom: 1px solid var(--secondary-background-color);
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            &:hover {
+                background-color: lighten($secondary-background-color, 10%);
+                background-color: var(--secondary-background-color-hover);
+                cursor: pointer;
+            }
+        }
     }
 }
 

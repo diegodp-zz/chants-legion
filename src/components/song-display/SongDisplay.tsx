@@ -41,6 +41,7 @@ export default function SongDisplay(props: {}) {
 
     // Keep track of the song objects to display
     const [songObjects, setSongObjects] = useState<JSX.Element[]>([]);
+    const [loadedSongs, setLoadedSongs] = useState<Set<string>>(new Set());
 
     useEffect(() => {
         let refs: React.RefObject<HTMLDivElement>[] = songs.map(() => createRef());
@@ -60,6 +61,9 @@ export default function SongDisplay(props: {}) {
                             currentPlayingRef.current.current?.stop();
                         }
                         currentPlayingRef.current = refs[index];
+                    }}
+                    onLoaded={(title: string) => {
+                        setLoadedSongs(prev => new Set(prev).add(title));
                     }}
                 />
             );
@@ -127,6 +131,14 @@ export default function SongDisplay(props: {}) {
 
                 <span style={{ visibility: "collapse", position: "absolute" }}></span>
                 {songObjects}
+                <div className="loaded-songs">
+                    <h3>Loaded Songs</h3>
+                    <ul>
+                        {[...loadedSongs].map((title, index) => (
+                            <li key={index}>{title}</li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         </>
     );

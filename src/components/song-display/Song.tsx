@@ -9,10 +9,11 @@ interface SongProps {
   audioSrc?: string;
   id?: number;
   onPlay: () => void; // Callback function to stop other songs
+  onLoaded: (title: string) => void; // Callback function to notify when a song is loaded
 }
 
 const Song: React.ForwardRefRenderFunction<HTMLDivElement, SongProps> = (
-  { title, lyrics, audioSrc, id, onPlay },
+  { title, lyrics, audioSrc, id, onPlay, onLoaded },
   ref
 ) => {
   const soundRef = useRef<Howl | null>(null);
@@ -20,9 +21,11 @@ const Song: React.ForwardRefRenderFunction<HTMLDivElement, SongProps> = (
   const [duration, setDuration] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(1); // Volume range from 0.0 to 1.0
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  useEffect(() => {
+  const loadSong = () => {
     if (audioSrc) {
+      setIsLoading(true);
       soundRef.current = new Howl({
         src: [audioSrc],
         preload: true,
@@ -30,6 +33,9 @@ const Song: React.ForwardRefRenderFunction<HTMLDivElement, SongProps> = (
         volume: volume,
         onload: () => {
           setDuration(soundRef.current?.duration() || 0);
+          setIsLoading(false);
+          onLoaded(title); // Notify parent component that the song is loaded
+          handlePlayPause();
         },
         onplay: () => {
           const updateCurrentTime = () => {
@@ -43,11 +49,13 @@ const Song: React.ForwardRefRenderFunction<HTMLDivElement, SongProps> = (
       // Preload the audio file
       soundRef.current.load();
     }
+  };
 
+  useEffect(() => {
     return () => {
       soundRef.current?.unload();
     };
-  }, [audioSrc, volume]);
+  }, []);
 
   const handleLyricClick = (timestamp: string) => {
     const [minutesStr, secondsStr] = timestamp.split(":");
@@ -66,7 +74,9 @@ const Song: React.ForwardRefRenderFunction<HTMLDivElement, SongProps> = (
   };
 
   const handlePlayPause = () => {
-    if (soundRef.current) {
+    if (!soundRef.current) {
+      loadSong();
+    } else {
       if (isPlaying) {
         soundRef.current.pause();
       } else {
@@ -112,7 +122,9 @@ const Song: React.ForwardRefRenderFunction<HTMLDivElement, SongProps> = (
       <HighlightedLyrics lyrics={lyrics} currentTime={currentTimeState} onLyricClick={handleLyricClick} />
       {audioSrc && (
         <div className="controls">
-          <button className="play-pause-button" onClick={handlePlayPause}>{isPlaying ? "Pause" : "Play"}</button>
+          <button className="play-pause-button" onClick={handlePlayPause} disabled={isLoading}>
+            {isLoading ? "Loading..." : isPlaying ? "Pause" : "Play"}
+          </button>
           <button className="stop-button" onClick={handleStop}>Stop</button>
           <div className="seek-bar">
             <label>Seek:</label>
