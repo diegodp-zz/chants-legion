@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createRef, useRef } from "react";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { navigate } from "gatsby";
 import "../../styles/song-display.scss";
 import Song from "./Song";
 import NavBar from "../nav-bar/NavBar";
@@ -46,28 +46,10 @@ const getSongRef = (title: string, refs: React.RefObject<{ stop: () => void, get
 
 export default function SongDisplay(props: {}) {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const location = useLocation();
   const [songRefs, setSongRefs] = useState<React.RefObject<{ stop: () => void, getElement: () => HTMLDivElement | null }>[]>([]);
   const currentPlayingRef = useRef<React.RefObject<{ stop: () => void, getElement: () => HTMLDivElement | null }> | null>(null);
 
   const [songObjects, setSongObjects] = useState<JSX.Element[]>([]);
-  const [loadedSongs, setLoadedSongs] = useState<Set<string>>(new Set());
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storedLoadedSongs = localStorage.getItem('loadedSongs');
-      if (storedLoadedSongs) {
-        setLoadedSongs(new Set(JSON.parse(storedLoadedSongs)));
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('loadedSongs', JSON.stringify([...loadedSongs]));
-    }
-  }, [loadedSongs]);
 
   useEffect(() => {
     const refs = songs.map(() => createRef<{ stop: () => void, getElement: () => HTMLDivElement | null }>());
@@ -88,9 +70,6 @@ export default function SongDisplay(props: {}) {
                 currentPlayingRef.current.current?.stop();
               }
               currentPlayingRef.current = refs[index];
-            }}
-            onLoaded={(title: string) => {
-              setLoadedSongs(prev => new Set(prev).add(title));
             }}
           />
           <div className="share-buttons">
@@ -115,8 +94,8 @@ export default function SongDisplay(props: {}) {
   }, []);
 
   useEffect(() => {
-    if (songRefs.length > 0) {
-      const query = new URLSearchParams(location.search).get('song');
+    if (songRefs.length > 0 && typeof window !== 'undefined') {
+      const query = new URLSearchParams(window.location.search).get('song');
       if (query) {
         const songRef = getSongRef(query, songRefs);
         if (songRef) {
@@ -124,7 +103,7 @@ export default function SongDisplay(props: {}) {
         }
       }
     }
-  }, [location.search, songRefs]);
+  }, [songRefs]);
 
   const searchForElement = (query: string) => {
     const reg = new RegExp(/^\d+$/);
@@ -179,14 +158,6 @@ export default function SongDisplay(props: {}) {
         </div>
         <span style={{ visibility: "collapse", position: "absolute" }}></span>
         {songObjects}
-        <div className="loaded-songs">
-          <h3>Loaded Songs</h3>
-          <ul>
-            {[...loadedSongs].map((title, index) => (
-              <li key={index}>{title}</li>
-            ))}
-          </ul>
-        </div>
       </div>
     </>
   );
