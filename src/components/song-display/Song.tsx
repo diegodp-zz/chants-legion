@@ -1,10 +1,17 @@
-import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle, useCallback } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+  useCallback,
+} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faStop, faPause, faSpinner } from '@fortawesome/free-solid-svg-icons';
-import HighlightedLyrics from "./HighlightedLyrics";
-import { Howl } from "howler";
+import HighlightedLyrics from './HighlightedLyrics';
+import { Howl } from 'howler';
 import PropTypes from 'prop-types';
-import "../../styles/song-display.scss";
+import '../../styles/song-display.scss';
 
 interface SongProps {
   title: string;
@@ -15,7 +22,12 @@ interface SongProps {
   onLoaded: (title: string) => void;
 }
 
-const Song: React.ForwardRefRenderFunction<HTMLDivElement, SongProps> = (
+interface SongHandle {
+  stop: () => void;
+  getElement: () => HTMLDivElement | null;
+}
+
+const Song: React.ForwardRefRenderFunction<SongHandle, SongProps> = (
   { title, lyrics, audioSrc, id, onPlay, onLoaded },
   ref
 ) => {
@@ -36,14 +48,14 @@ const Song: React.ForwardRefRenderFunction<HTMLDivElement, SongProps> = (
 
   const loadSong = useCallback(() => {
     if (audioSrc) {
-      setState(prevState => ({ ...prevState, isLoading: true }));
+      setState((prevState) => ({ ...prevState, isLoading: true }));
       soundRef.current = new Howl({
         src: [audioSrc],
         preload: true,
         html5: true,
         volume: state.volume,
         onload: () => {
-          setState(prevState => ({
+          setState((prevState) => ({
             ...prevState,
             duration: soundRef.current?.duration() || 0,
             isLoading: false,
@@ -54,7 +66,7 @@ const Song: React.ForwardRefRenderFunction<HTMLDivElement, SongProps> = (
         onplay: () => {
           const updateCurrentTime = () => {
             if (soundRef.current) {
-              setState(prevState => ({
+              setState((prevState) => ({
                 ...prevState,
                 currentTime: soundRef.current?.seek() as number,
               }));
@@ -65,11 +77,11 @@ const Song: React.ForwardRefRenderFunction<HTMLDivElement, SongProps> = (
         },
         onloaderror: (id, error) => {
           console.error(`Failed to load audio: ${error}`);
-          setState(prevState => ({ ...prevState, isLoading: false }));
+          setState((prevState) => ({ ...prevState, isLoading: false }));
         },
         onplayerror: (id, error) => {
           console.error(`Failed to play audio: ${error}`);
-          setState(prevState => ({ ...prevState, isLoading: false }));
+          setState((prevState) => ({ ...prevState, isLoading: false }));
         },
       });
       soundRef.current.load();
@@ -82,23 +94,26 @@ const Song: React.ForwardRefRenderFunction<HTMLDivElement, SongProps> = (
     };
   }, []);
 
-  const handleLyricClick = useCallback((timestamp: string) => {
-    if (state.isLoading) return;
+  const handleLyricClick = useCallback(
+    (timestamp: string) => {
+      if (state.isLoading) return;
 
-    const [minutesStr, secondsStr] = timestamp.split(":");
-    const minutes = parseInt(minutesStr, 10);
-    const seconds = parseInt(secondsStr, 10);
+      const [minutesStr, secondsStr] = timestamp.split(':');
+      const minutes = parseInt(minutesStr, 10);
+      const seconds = parseInt(secondsStr, 10);
 
-    if (!isNaN(minutes) && !isNaN(seconds) && soundRef.current) {
-      const targetTime = minutes * 60 + seconds;
-      soundRef.current.seek(targetTime);
-      soundRef.current.play();
-      onPlay();
-      setState(prevState => ({ ...prevState, isPlaying: true }));
-    } else {
-      console.error("Invalid timestamp format:", timestamp);
-    }
-  }, [state.isLoading, onPlay]);
+      if (!isNaN(minutes) && !isNaN(seconds) && soundRef.current) {
+        const targetTime = minutes * 60 + seconds;
+        soundRef.current.seek(targetTime);
+        soundRef.current.play();
+        onPlay();
+        setState((prevState) => ({ ...prevState, isPlaying: true }));
+      } else {
+        console.error('Invalid timestamp format:', timestamp);
+      }
+    },
+    [state.isLoading, onPlay]
+  );
 
   const handlePlayPause = useCallback(() => {
     if (state.isLoading) return;
@@ -112,14 +127,14 @@ const Song: React.ForwardRefRenderFunction<HTMLDivElement, SongProps> = (
         soundRef.current.play();
         onPlay();
       }
-      setState(prevState => ({ ...prevState, isPlaying: !prevState.isPlaying }));
+      setState((prevState) => ({ ...prevState, isPlaying: !prevState.isPlaying }));
     }
   }, [state.isLoading, state.isPlaying, loadSong, onPlay]);
 
   const handleStop = useCallback(() => {
     if (soundRef.current) {
       soundRef.current.stop();
-      setState(prevState => ({
+      setState((prevState) => ({
         ...prevState,
         isPlaying: false,
         currentTime: 0,
@@ -129,22 +144,25 @@ const Song: React.ForwardRefRenderFunction<HTMLDivElement, SongProps> = (
 
   const handleVolumeChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const newVolume = parseFloat(event.target.value);
-    setState(prevState => ({ ...prevState, volume: newVolume }));
+    setState((prevState) => ({ ...prevState, volume: newVolume }));
     if (soundRef.current) {
       soundRef.current.volume(newVolume);
     }
   }, []);
 
-  const handleSeekChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    if (state.isLoading) return;
+  const handleSeekChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (state.isLoading) return;
 
-    const newTime = parseFloat(event.target.value);
-    setState(prevState => ({ ...prevState, currentTime: newTime }));
+      const newTime = parseFloat(event.target.value);
+      setState((prevState) => ({ ...prevState, currentTime: newTime }));
 
-    if (soundRef.current) {
-      soundRef.current.seek(newTime);
-    }
-  }, [state.isLoading]);
+      if (soundRef.current) {
+        soundRef.current.seek(newTime);
+      }
+    },
+    [state.isLoading]
+  );
 
   const { currentTime, duration, isPlaying, volume, isLoading } = state;
 
@@ -152,13 +170,30 @@ const Song: React.ForwardRefRenderFunction<HTMLDivElement, SongProps> = (
     <div className="song" ref={internalRef}>
       <h1 className="song-title">{title}</h1>
       {id && <div style={{ display: 'none' }}>{id}</div>}
-      <HighlightedLyrics lyrics={lyrics} currentTime={currentTime} onLyricClick={handleLyricClick} />
+      <HighlightedLyrics
+        lyrics={lyrics}
+        currentTime={currentTime}
+        onLyricClick={handleLyricClick}
+      />
       {audioSrc && (
         <div className="controls">
-          <button className="play-pause-button" onClick={handlePlayPause} disabled={isLoading} aria-label={isPlaying ? "Pause" : "Play"}>
-            {isLoading ? <FontAwesomeIcon icon={faSpinner} spin /> : isPlaying ? <FontAwesomeIcon icon={faPause} /> : <FontAwesomeIcon icon={faPlay} />}
+          <button
+            className="play-pause-button"
+            onClick={handlePlayPause}
+            disabled={isLoading}
+            aria-label={isPlaying ? 'Pause' : 'Play'}
+          >
+            {isLoading ? (
+              <FontAwesomeIcon icon={faSpinner} spin />
+            ) : isPlaying ? (
+              <FontAwesomeIcon icon={faPause} />
+            ) : (
+              <FontAwesomeIcon icon={faPlay} />
+            )}
           </button>
-          <button className="stop-button" onClick={handleStop} aria-label="Stop"><FontAwesomeIcon icon={faStop} /></button>
+          <button className="stop-button" onClick={handleStop} aria-label="Stop">
+            <FontAwesomeIcon icon={faStop} />
+          </button>
           <div className="seek-bar">
             <label>Seek:</label>
             <input
@@ -197,6 +232,6 @@ Song.propTypes = {
   id: PropTypes.number,
   onPlay: PropTypes.func.isRequired,
   onLoaded: PropTypes.func.isRequired,
-};
+} as any; // Cast to any to bypass TypeScript type checking for propTypes
 
 export default forwardRef(Song);

@@ -1,1 +1,0 @@
-export default interface SongData {title: string, lyrics: string[], object?: JSX.Element, reference?: React.RefObject<HTMLSpanElement>};

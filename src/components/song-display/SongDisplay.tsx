@@ -1,77 +1,62 @@
-import React, { useState, useEffect, createRef, useRef } from "react";
-import { navigate } from "gatsby";
-import "../../styles/song-display.scss";
-import Song from "./Song";
-import NavBar from "../nav-bar/NavBar";
-import JSONSongs from "../../content/songs.json";
-import { SongData } from "../../types/SongData";
-import headerImage from "../../images/carnet.jpeg";
-import { useTranslation } from 'gatsby-plugin-react-i18next';
+'use client';
+// 0
+import React, { useState, useEffect, createRef, useRef } from 'react';
+import Image from 'next/image';
+import '../../styles/song-display.scss';
+import Song from './Song';
+import NavBar from '../nav-bar/NavBar';
+
+import { scrollTo, getSongRef } from '../utils/ScrollTo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp, faTwitter, faFacebook } from '@fortawesome/free-brands-svg-icons';
 
-// Load songs from JSON
-let songs: SongData[] = JSONSongs;
-
-const scrollTo = (ref?: React.RefObject<{ stop: () => void, getElement: () => HTMLDivElement | null }>) => {
-  if (typeof window !== 'undefined' && ref?.current) {
-    const element = ref.current.getElement();
-    if (!element) {
-      console.error("ref.current.getElement() is null or undefined");
-      return;
-    }
-
-    const relative = document.getElementsByClassName("All-songs")[0].children[0] as HTMLDivElement;
-    const offset = 0;
-    const bodyRect = relative.getBoundingClientRect().top;
-    const elementRect = element.getBoundingClientRect().top;
-    const elementPos = elementRect - bodyRect;
-    const offsetPos = elementPos - offset;
-
-    document.getElementsByClassName("All-songs")[0]?.scrollTo({
-      top: offsetPos,
-      behavior: "smooth"
-    });
-  }
-};
-
-const getSongRef = (title: string, refs: React.RefObject<{ stop: () => void, getElement: () => HTMLDivElement | null }>[]) => {
-  const index = songs.findIndex(song => song.title === title);
-  if (index === -1 || !refs[index]) {
-    console.error(`Song or ref not found for title: ${title}`);
-    return null;
-  }
-  return refs[index];
+export interface SongData {
+  title: string;
+  lyrics: string[];
+  audioSrc?: string;
+  reference?: React.RefObject<{ 
+    stop: () => void; 
+    getElement: () => HTMLDivElement | null 
+  }>;
 }
 
 export default function SongDisplay(props: {}) {
-  const { t } = useTranslation();
-  const [songRefs, setSongRefs] = useState<React.RefObject<{ stop: () => void, getElement: () => HTMLDivElement | null }>[]>([]);
-  const currentPlayingRef = useRef<React.RefObject<{ stop: () => void, getElement: () => HTMLDivElement | null }> | null>(null);
+  const [songs, setSongs] = useState<SongData[]>([]);
+  const [songRefs, setSongRefs] = useState<React.RefObject<{ stop: () => void; getElement: () => HTMLDivElement | null }>[]>([]);
+  const currentPlayingRef = useRef<React.RefObject<{ stop: () => void; getElement: () => HTMLDivElement | null }> | null>(null);
 
   const [songObjects, setSongObjects] = useState<JSX.Element[]>([]);
 
   useEffect(() => {
-    const refs = songs.map(() => createRef<{ stop: () => void, getElement: () => HTMLDivElement | null }>());
-    setSongRefs(refs);
+    // Fetch the JSON data from the public folder
+    fetch('/songs.json')
+      .then((response) => response.json())
+      .then((data: SongData[]) => {
+        setSongs(data);
 
-    const updatedSongs = songs.map((song, index) => {
-      song.reference = refs[index];
-      return (
-        <div key={index} className="song-container">
-          <Song
-            title={song.title}
-            lyrics={song.lyrics}
-            id={index + 1}
-            audioSrc={song.audioSrc}
-            ref={refs[index]}
-            onPlay={() => {
-              if (currentPlayingRef.current && currentPlayingRef.current !== refs[index]) {
-                currentPlayingRef.current.current?.stop();
-              }
-              currentPlayingRef.current = refs[index];
-            }}
-          />
+        const refs = data.map(() => createRef<{ stop: () => void; getElement: () => HTMLDivElement | null }>());
+        setSongRefs(refs);
+
+        const updatedSongs = data.map((song, index) => {
+          song.reference = refs[index];
+          return (
+            <div key={index} className="song-container">
+              <Song
+                title={song.title}
+                lyrics={song.lyrics}
+                id={index + 1}
+                audioSrc={song.audioSrc}
+                ref={refs[index]}
+                onPlay={() => {
+                  if (currentPlayingRef.current && currentPlayingRef.current !== refs[index]) {
+                    currentPlayingRef.current.current?.stop();
+                  }
+                  currentPlayingRef.current = refs[index];
+                }}
+                onLoaded={(title) => {
+                  console.log(`${title} loaded`);
+                }}
+              />
           <div className="share-buttons">
             {typeof window !== 'undefined' && (
               <>
@@ -87,10 +72,14 @@ export default function SongDisplay(props: {}) {
               </>
             )}
           </div>
-        </div>
-      );
-    });
-    setSongObjects(updatedSongs);
+            </div>
+          );
+        });
+        setSongObjects(updatedSongs);
+      })
+      .catch((error) => {
+        console.error('Error fetching songs:', error);
+      });
   }, []);
 
   useEffect(() => {
@@ -115,7 +104,6 @@ export default function SongDisplay(props: {}) {
       if (num < songs.length) {
         const song = songs[num];
         if (song.reference) {
-          navigate(`?song=${encodeURIComponent(song.title)}`);
           scrollTo(song.reference);
           return;
         }
@@ -124,7 +112,6 @@ export default function SongDisplay(props: {}) {
       const queryLower = query.toLowerCase();
       for (const song of songs) {
         if (song.title.toLowerCase().includes(queryLower) && song.reference) {
-          navigate(`?song=${encodeURIComponent(song.title)}`);
           scrollTo(song.reference);
           return;
         }
@@ -136,26 +123,13 @@ export default function SongDisplay(props: {}) {
     <>
       <NavBar search={searchForElement} songs={songs} />
       <div className="All-songs custom-scrollbar" style={{ position: "relative" }}>
-        <img
-          src={headerImage}
+        <Image
+          src="/carnet.jpeg"
           alt="Header"
+          width={800} // Adjust width as needed
+          height={0} // Adjust height as needed
           style={{ width: "70%", height: "auto", margin: "0 auto", paddingTop: "20px" }}
         />
-        <div className="text-container">
-          <p>{t('buildBy')}</p>
-          <h3>{t('offlineUsageQuestion')}</h3>
-          <p>{t('offlineUsageDescription')}</p>
-          <h4>Android/PC</h4>
-          <ul style={{ listStyleType: "none", padding: 0 }}>
-            <li>{t('androidPcStep1')}</li>
-            <li>{t('androidPcStep2')}</li>
-          </ul>
-          <h4>iOS</h4>
-          <ul style={{ listStyleType: "none", padding: 0 }}>
-            <li>{t('iosStep1')}</li>
-            <li>{t('iosStep2')}</li>
-          </ul>
-        </div>
         <span style={{ visibility: "collapse", position: "absolute" }}></span>
         {songObjects}
       </div>
