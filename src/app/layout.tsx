@@ -5,8 +5,8 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PartyKit Chat Demo",
-  description: "Chat!",
+  title: "Chant's legionChants de la Légion Étrangère",
+  description: "",
 };
 
 export default function RootLayout({
