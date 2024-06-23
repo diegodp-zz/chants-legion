@@ -27,7 +27,7 @@ function UsersProvider({ children }: { children: ReactNode }) {
     if (!thisUser) {
       throw new Error("Could not get the current user id?");
     }
-  }, 3000);
+  }, 6000);
 
   useSocketMessage<string>(setThisUser, UsersOutgoing.userId);
 
