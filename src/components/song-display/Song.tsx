@@ -61,7 +61,7 @@ const Song: React.ForwardRefRenderFunction<SongHandle, SongProps> = (
             isLoading: false,
           }));
           onLoaded(title);
-          
+          handlePlayPause();
         },
         onplay: () => {
           const updateCurrentTime = () => {
