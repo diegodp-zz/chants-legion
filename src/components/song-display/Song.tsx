@@ -61,7 +61,7 @@ const Song: React.ForwardRefRenderFunction<SongHandle, SongProps> = (
             isLoading: false,
           }));
           onLoaded(title);
-          handlePlayPause();
+          
         },
         onplay: () => {
           const updateCurrentTime = () => {
@@ -116,24 +116,22 @@ const Song: React.ForwardRefRenderFunction<SongHandle, SongProps> = (
     [state.isLoading, onPlay]
   );
 
-  const handlePlayPause = useCallback(() => {
-    if (state.isLoading) return;
+const handlePlayPause = useCallback(() => {
+  if (state.isLoading) return;
 
-    if (!soundRef.current) {
-      loadSong();
+  if (!soundRef.current) {
+    loadSong();
+  } else {
+    if (soundRef.current.playing()) {
+      soundRef.current.pause();
+      setState((prevState) => ({ ...prevState, isPlaying: false }));
     } else {
-      if (state.isPlaying) {
-        soundRef.current.pause();
-      } else {
-        if (soundRef.current.play()) {
-          soundRef.current.stop();
-        }
-        soundRef.current.play();
-        onPlay();
-      }
-      setState((prevState) => ({ ...prevState, isPlaying: !prevState.isPlaying }));
+      soundRef.current.play();
+      setState((prevState) => ({ ...prevState, isPlaying: true }));
+      onPlay();
     }
-  }, [state.isLoading, state.isPlaying, loadSong, onPlay]);
+  }
+}, [state.isLoading, state.isPlaying, loadSong, onPlay]);
 
   const handleStop = useCallback(() => {
     if (soundRef.current) {
