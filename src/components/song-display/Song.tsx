@@ -104,6 +104,7 @@ const Song: React.ForwardRefRenderFunction<SongHandle, SongProps> = (
 
       if (!isNaN(minutes) && !isNaN(seconds) && soundRef.current) {
         const targetTime = minutes * 60 + seconds;
+        soundRef.current.stop(); 
         soundRef.current.seek(targetTime);
         soundRef.current.play();
         onPlay();
@@ -124,6 +125,9 @@ const Song: React.ForwardRefRenderFunction<SongHandle, SongProps> = (
       if (state.isPlaying) {
         soundRef.current.pause();
       } else {
+        if (soundRef.current.play()) {
+          soundRef.current.stop();
+        }
         soundRef.current.play();
         onPlay();
       }
