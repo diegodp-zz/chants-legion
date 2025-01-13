@@ -25,7 +25,6 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioSrc, onPlay, onLoaded })
     soundRef.current = new Howl({
       src: [audioSrc],
       preload: true,
-      html5: true,
       volume: state.volume,
       onload: () => {
         setState((prevState) => ({
