@@ -52,7 +52,6 @@ const Song: React.ForwardRefRenderFunction<SongHandle, SongProps> = (
       soundRef.current = new Howl({
         src: [audioSrc],
         preload: true,
-        html5: true,
         volume: state.volume,
         onload: () => {
           setState((prevState) => ({
